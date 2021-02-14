@@ -1,0 +1,5 @@
+.leaflet-div-icon {
+    background-color: none;
+    border-radius: 25px;
+    z-index: 0;
+}
