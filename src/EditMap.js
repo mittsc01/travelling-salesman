@@ -102,6 +102,7 @@ function computePathLength(points,unit){
       <button onClick={handleRemove}>Remove last</button>
       <button onClick={toggleUnit}>{unit==='M'?'Metric':'Imperial'}</button>
       
+      
       <span>{`Route distance: ${computePathLength(points,unit).toFixed(1)} ${unit==='M'?'mi':'km'}`} </span>
     </div>
   );

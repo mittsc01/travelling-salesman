@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import StaticDrawing from './StaticDrawing'
 import Helmet from 'react-helmet'
-import {MapContainer,TileLayer, useMap} from 'react-leaflet'
+import {MapContainer,TileLayer, useMap,LayersControl,} from 'react-leaflet'
 
 export default function Map(props){
   //const [map,setMap] = useState(null)
@@ -60,10 +60,29 @@ function computePathLength(points,unit){
           crossorigin="" />
       </Helmet>
       <MapContainer id="map-container" center={{lat: 43.30, lng: -91.79}} zoom={15} scrollWheelZoom={true}>
+        
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" opacity={0.5}
+        /> 
+        <LayersControl position="topright">
+        <LayersControl.BaseLayer name="Satellite">
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url='http://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
         />
+        </LayersControl.BaseLayer>
+        <LayersControl.BaseLayer name="Streetview">
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" 
+        /> 
+        </LayersControl.BaseLayer>
+        </LayersControl>
+       {/* <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png" opacity={0.5}
+        /> */}
         <StaticDrawing points={[...points]}/>
         
       </MapContainer>

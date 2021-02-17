@@ -1,5 +1,5 @@
 import { Marker,useMapEvents,useMap, Polyline} from 'react-leaflet'
-import React from 'react'
+import React, {useEffect} from 'react'
 import {iconFilbert} from './icon'
 import './DynamicDrawing.css'
 export default function DynamicDrawing(props) {
@@ -15,8 +15,8 @@ export default function DynamicDrawing(props) {
       },
       
     })
-    const m = useMap()
-    m.fitBounds(props.points.map(point=>[point.lat,point.lng]))
+    
+    
     
     
     const picture = !props.points.length ? null : (
@@ -33,7 +33,7 @@ export default function DynamicDrawing(props) {
       <div>
         {picture}
         {props.points.length?<Polyline positions={props.points}  />:null}
-        
+        <button>Test</button>
       </div>
     )
     
