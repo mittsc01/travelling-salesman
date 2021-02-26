@@ -1,8 +1,9 @@
 import { Marker,useMapEvents,useMap, Polyline} from 'react-leaflet'
-import React, {useEffect} from 'react'
-import {iconFilbert} from './icon'
+import React, {useState} from 'react'
+import {iconFilbert} from '../../icon'
 import './DynamicDrawing.css'
 export default function DynamicDrawing(props) {
+    const [tog,setTog] = useState(true)
     
     const map = useMapEvents({
       click(e) {
@@ -15,6 +16,13 @@ export default function DynamicDrawing(props) {
       },
       
     })
+    //console.log(props.points)
+    if (props.points.length > 0 && tog) {
+      map.fitBounds(props.points.map(point=>[point.lat,point.lng]))
+      setTog(false)
+    }
+    
+     
     
     
     
@@ -23,7 +31,7 @@ export default function DynamicDrawing(props) {
       props.points.map((point,idx) =>{ return (
         <Marker  icon={iconFilbert} eventHandlers={{ 
           drag: (e) => props.handleDrag(e,idx),
-          click: (e) => props.handleMarkerClick(e,idx)
+          
           }} key={`marker-${idx}`} draggable position={point}>
         </Marker>)}
       )

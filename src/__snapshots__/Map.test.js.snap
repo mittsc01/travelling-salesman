@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the UI as expected 1`] = `
+<div
+  className="edit"
+>
+  <h2 />
+  <div
+    id="map-container"
+  />
+  <button
+    onClick={[Function]}
+  >
+    Metric
+  </button>
+  <span>
+    Route distance: 0.0 mi
+     
+  </span>
+</div>
+`;

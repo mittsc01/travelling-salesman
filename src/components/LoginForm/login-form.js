@@ -1,6 +1,6 @@
 import React from 'react'
-import RaceContext from './RaceContext'
-import AuthApiService from './services/auth-api-service'
+import RaceContext from '../../LoginContext'
+import AuthApiService from '../../services/auth-api-service'
 
 
 export default class LoginForm extends React.Component {
@@ -21,7 +21,7 @@ export default class LoginForm extends React.Component {
           user_name.value = ''
           password.value = ''
           this.context.handleLogin()
-          this.props.history.push('/my-races')
+          this.props.history.push('/schedule')
         })
         .catch(res => {
           alert(res.error)

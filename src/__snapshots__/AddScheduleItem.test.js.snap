@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the UI as expected 1`] = `
+<form
+  className="add-schedule"
+  onSubmit={[Function]}
+>
+  <select
+    id="route"
+    name="route"
+    required={true}
+  />
+  <label
+    htmlFor="date"
+  >
+    Date
+  </label>
+  <input
+    id="date"
+    name="date"
+    required={true}
+    type="date"
+  />
+  <label
+    htmlFor="title"
+  >
+    Title
+  </label>
+  <input
+    id="title"
+    name="title"
+    required={true}
+    type="text"
+  />
+  <button
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;

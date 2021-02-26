@@ -1,15 +1,43 @@
-import React, {useState} from 'react'
-import StaticDrawing from './StaticDrawing'
+import React, {useState,useEffect} from 'react'
+import StaticDrawing from '../StaticDrawing/StaticDrawing'
 import Helmet from 'react-helmet'
 import {MapContainer,TileLayer, useMap,LayersControl,} from 'react-leaflet'
+import RoutesService from '../../services/routes-service'
 
 export default function Map(props){
   //const [map,setMap] = useState(null)
   const [unit,setUnit] = useState('M')
   //GET API_ENDPOINT/routes/${props.match.params.id}
-  const [points, setPoints] = useState([{lat:43.3017, lng:-91.7903},{lat:43.5017, lng:-91.8903}])
+  const [points, setPoints] = useState([])
+  const [run,setRun] = useState({})
   
-  
+  useEffect( () => {
+        
+    (async () => {
+        const runs =  await RoutesService.getSchedule()
+        const theOne = runs.find(run => {
+            //console.log(route.id,props.match.params.id)
+            return run.id === parseInt(props.match.params.id)
+          })
+        setRun(theOne)
+        //console.log(routes)
+        if (runs.length !==0){
+            console.log(theOne.route_id)
+          const markers = await RoutesService.getPoints(theOne.route_id)
+          if (markers.length !==0){
+            markers.sort((a,b) => a.index-b.index)
+            
+          }
+          //console.log(markers)
+          setPoints(markers)
+          
+          
+        }
+         
+
+        
+    })()
+}, [props])
 
 
 const toggleUnit = () => {
@@ -59,12 +87,9 @@ function computePathLength(points,unit){
           integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
           crossorigin="" />
       </Helmet>
+        <h2>{run.title}</h2>
       <MapContainer id="map-container" center={{lat: 43.30, lng: -91.79}} zoom={15} scrollWheelZoom={true}>
-        
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" opacity={0.5}
-        /> 
+       
         <LayersControl position="topright">
         <LayersControl.BaseLayer name="Satellite">
         <TileLayer
@@ -72,7 +97,7 @@ function computePathLength(points,unit){
           url='http://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
         />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Streetview">
+        <LayersControl.BaseLayer name="Streetview" checked>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" 

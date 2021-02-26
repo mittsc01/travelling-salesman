@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the UI as expected 1`] = `
+<div
+  className="edit"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <label
+      htmlFor="title"
+    >
+      Title
+    </label>
+    <input
+      defaultValue={null}
+      name="title"
+      onChange={[Function]}
+      type="text"
+    />
+    <div
+      id="map-container"
+    />
+    <button
+      disabled={true}
+      type="submit"
+    >
+      Save
+    </button>
+  </form>
+  <button
+    onClick={[Function]}
+  >
+    Clear
+  </button>
+  <button
+    onClick={[Function]}
+  >
+    Remove last
+  </button>
+  <button
+    onClick={[Function]}
+  >
+    Metric
+  </button>
+  <span>
+    Route distance: 0.0 mi
+     
+  </span>
+</div>
+`;

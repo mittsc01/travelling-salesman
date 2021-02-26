@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the UI as expected 1`] = `
+<div
+  className="main"
+>
+  <header>
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      About
+    </a>
+    <a
+      href="/login"
+      onClick={[Function]}
+    >
+      Login
+    </a>
+    <a
+      href="/register"
+      onClick={[Function]}
+    >
+      Register
+    </a>
+  </header>
+  <div>
+    <h1>
+      Travelling Salesman App
+    </h1>
+    <p>
+      Create routes and add them to your schedule.
+    </p>
+  </div>
+</div>
+`;

@@ -1,8 +1,23 @@
 import config from '../config'
 import TokenService from './token-service'
-const RacesService = {
-    getMyRaces(){
-        return fetch(`${config.API_ENDPOINT}/my-races/`, {
+const RoutesService = {
+    getSchedule(){
+      return fetch(`${config.API_ENDPOINT}/schedule`, {
+        method: 'GET',
+        headers: {
+          'authorization': `Bearer ${TokenService.getAuthToken()}`,
+        },
+      })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(e => Promise.reject(e))
+          : res.json()
+      )
+      
+
+    },
+    getRoutes(){
+        return fetch(`${config.API_ENDPOINT}/routes/`, {
             method: 'GET',
             headers: {
               'authorization': `Bearer ${TokenService.getAuthToken()}`,
@@ -13,41 +28,89 @@ const RacesService = {
               ? res.json().then(e => Promise.reject(e))
               : res.json()
           )
+          
+    },
+    getPoints(routeId){
+      return fetch(`${config.API_ENDPOINT}/points/${routeId}`, {
+        method: 'GET',
+        headers: {
+          'authorization': `Bearer ${TokenService.getAuthToken()}`,
+          
+        },
+        
+      })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(e => Promise.reject(e))
+          : res.json()
+      )
     },
     async getMyData (props){
 
-        const results = await RacesService.getMyResultsByRaceId(props.match.params.id)
-        const race = await RacesService.getRaceById(props.match.params.id)
-        //sort results
+        const results = await RoutesService.getMyResultsByRaceId(props.match.params.id)
+        const race = await RoutesService.getRaceById(props.match.params.id)
+        
         results.sort((a,b)=>a.place-b.place)
         
         return {results,...race}
     },
     async getData (props){
 
-      const results = await RacesService.getResultsByRaceId(props.match.params.id)
-      const race = await RacesService.getRaceById(props.match.params.id)
-      //sort results
+      const results = await RoutesService.getResultsByRaceId(props.match.params.id)
+      const race = await RoutesService.getRaceById(props.match.params.id)
+      
       results.sort((a,b)=>a.place-b.place)
       
       return {results,...race}
   },
-
-    postRace(postBody){
-        return fetch(`${config.API_ENDPOINT}/my-races/`, {
-            method: 'POST',
-            headers: {
-                'authorization': `Bearer ${TokenService.getAuthToken()}`,
-                'content-type': 'application/json',
-            },
-            body: postBody
-        })
-        .then(res =>
+    //postBody will be {"route": {"title":"example"}, "points":[...points]}
+     postRoute(postBody){
+         return fetch(`${config.API_ENDPOINT}/routes/`, {
+             method: 'POST',
+             headers: {
+                 'authorization': `Bearer ${TokenService.getAuthToken()}`,
+                 'content-type': 'application/json',
+             },
+             body: JSON.stringify({'title': postBody.title})
+         })
+         .then(res =>
+             (!res.ok)
+               ? res.json().then(e => Promise.reject(e))
+               : res.json()
+           )
+           .then((res) => {
+             //console.log(res)
+            return fetch(`${config.API_ENDPOINT}/points/${res.id}`, {
+              method: 'POST',
+              headers: {
+                  'authorization': `Bearer ${TokenService.getAuthToken()}`,
+                  'content-type': 'application/json',
+              },
+              body: JSON.stringify(postBody.points)
+          })
+           })
+           .then(res =>
             (!res.ok)
               ? res.json().then(e => Promise.reject(e))
               : res.json()
           )
-    },
+     },
+     postRun(postBody){
+      return fetch(`${config.API_ENDPOINT}/schedule`, {
+          method: 'POST',
+          headers: {
+              'authorization': `Bearer ${TokenService.getAuthToken()}`,
+              'content-type': 'application/json',
+          },
+          body: JSON.stringify(postBody)
+      })
+      .then(res =>
+          (!res.ok)
+            ? res.json().then(e => Promise.reject(e))
+            : res.json()
+        )
+ 
+  },
     postFinisher(raceId,postBody){
         return fetch(`${config.API_ENDPOINT}/my-races/${raceId}/results`, {
             method: 'POST',
@@ -63,14 +126,14 @@ const RacesService = {
               : res.json()
           )
     },
-    updateRace(patchBody,raceId){
-        return fetch(`${config.API_ENDPOINT}/my-races/${raceId}`, {
+    updateRoute(patchBody,routeId){
+        return fetch(`${config.API_ENDPOINT}/routes/${routeId}`, {
             method: 'PATCH',
             headers: {
                 'authorization': `Bearer ${TokenService.getAuthToken()}`,
                 'content-type': 'application/json',
             },
-            body: patchBody,
+            body: JSON.stringify(patchBody),
         })
         .then(res =>
             
@@ -79,7 +142,26 @@ const RacesService = {
               : res
           )
         
+        
     },
+    updatePoints(patchBody,routeId){
+      return fetch(`${config.API_ENDPOINT}/points/${routeId}`, {
+          method: 'PUT',
+          headers: {
+              'authorization': `Bearer ${TokenService.getAuthToken()}`,
+              'content-type': 'application/json',
+          },
+          body: JSON.stringify(patchBody),
+      })
+      .then(res =>
+          
+          (!res.ok)
+            ? res.json().then(e => Promise.reject(e))
+            : res
+        )
+      
+      
+  },
 
     getMyRaceById(id){
         return fetch(`${config.API_ENDPOINT}/my-races/${id}`, {
@@ -143,14 +225,22 @@ const RacesService = {
               : res.json()
           )
     },
-    deleteRace(id){
-        return fetch(`${config.API_ENDPOINT}/my-races/${id}`, {
+    deleteRoute(id){
+        return fetch(`${config.API_ENDPOINT}/routes/${id}`, {
             method: 'DELETE',
             headers: {
               'authorization': `Bearer ${TokenService.getAuthToken()}`,
             },
           }) 
     },
+    deleteScheduleItem(id){
+      return fetch(`${config.API_ENDPOINT}/schedule/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'authorization': `Bearer ${TokenService.getAuthToken()}`,
+          },
+        }) 
+  },
     deleteFinisher(race_id,finisher_id){
         return fetch(`${config.API_ENDPOINT}/my-races/${race_id}/results/${finisher_id}`, {
             method: 'DELETE',
@@ -163,4 +253,4 @@ const RacesService = {
 
 
 
-export default RacesService
+export default RoutesService

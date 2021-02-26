@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the UI as expected 1`] = `
+<form
+  className="registration-form"
+  onSubmit={[Function]}
+>
+  <label
+    htmlFor="full_name"
+  >
+    Name
+  </label>
+  <input
+    name="full_name"
+  />
+  <label
+    htmlFor="user_name"
+  >
+    Username
+  </label>
+  <input
+    name="user_name"
+    type="text"
+  />
+  <label
+    htmlFor="password"
+  >
+    Password
+  </label>
+  <input
+    name="password"
+    type="password"
+  />
+  <label
+    htmlFor="repeat_password"
+  >
+    Repeat Password
+  </label>
+  <input
+    name="repeat_password"
+    type="password"
+  />
+  <button
+    type="submit"
+  >
+    Register
+  </button>
+</form>
+`;

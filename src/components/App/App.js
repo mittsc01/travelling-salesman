@@ -1,20 +1,21 @@
 import './App.css';
 import React, { useState,useEffect} from 'react'
-import EditMap from './EditMap';
-import Schedule from './Schedule'
+import EditMap from '../EditMap/EditMap';
+import Schedule from '../Schedule/Schedule'
 import {Link, Route, Switch} from 'react-router-dom'
-import Map from './Map'
-import RouteList from './RouteList';
-import About from './About'
-import AddScheduleItem from './AddScheduleItem'
-import TokenService from './services/token-service'
-import AuthApiService from './services/auth-api-service'
-import IdleService from './services/idle-service'
-import PrivateRoute from './utils/PrivateRoute'
-import PublicOnlyRoute from './utils/PublicOnlyRoute'
-import LoginForm from './login-form'
-import RegistrationForm from './RegistrationForm'
-import RaceContext from './RaceContext';
+import Map from '../Map/Map'
+import RouteList from '../RouteList/RouteList';
+import About from '../About/About'
+import AddScheduleItem from '../AddScheduleItem/AddScheduleItem'
+import TokenService from '../../services/token-service'
+import AuthApiService from '../../services/auth-api-service'
+import IdleService from '../../services/idle-service'
+import PrivateRoute from '../../utils/PrivateRoute'
+import PublicOnlyRoute from '../../utils/PublicOnlyRoute'
+import LoginForm from '../LoginForm/login-form'
+import RegistrationForm from '../RegistrationForm/RegistrationForm'
+import LoginContext from '../../LoginContext';
+import AddMap from '../AddMap/AddMap'
 
 class App extends React.Component {
   state = {
@@ -88,7 +89,10 @@ class App extends React.Component {
   handleRegister = () => {
     this.props.history.push('/login')
   }
-
+showConfirm = () => {
+  console.log('hi')
+  return window.confirm("Are you sure you want to leave?")
+}
 render(){
   const contextValue = {
     login: this.state.login,
@@ -106,26 +110,26 @@ render(){
           {!TokenService.hasAuthToken()
           && <Link to="/register">Register</Link>
           }
-        <Link to='/routes'>Routes</Link>
-        <Link to='/schedule'>Schedule</Link>
+        {TokenService.hasAuthToken() && <Link to='/routes'>Routes</Link>}
+        {TokenService.hasAuthToken() && <Link to='/schedule'>Schedule</Link>}
         {TokenService.hasAuthToken()
           && <Link onClick={this.handleLogout} to="/">Logout</Link>
           }
         
       </header>
-      <RaceContext.Provider value={contextValue}>
-        <Route exact path='/login' component={LoginForm} />
-      </RaceContext.Provider>
-      <Route exact path='/register' component={RegistrationForm} />
+      <LoginContext.Provider value={contextValue}>
+        <PublicOnlyRoute exact path='/login' component={LoginForm} />
+      </LoginContext.Provider>
+      <PublicOnlyRoute exact path='/register' component={RegistrationForm} />
       <Route exact path="/" component={About}/>
-      <Route exact path='/routes' component={RouteList} />
-      <Route path="/routes/add" component={EditMap} />
-      <Route path="/routes/:id" component={EditMap} />
-      <Route exact path="/schedule" component={Schedule} />
+      <PrivateRoute exact path='/routes'  component={RouteList} />
+      <PrivateRoute path="/add-route" component={AddMap} />
+      <PrivateRoute path="/routes/:id" onLeave={this.showConfirm} component={EditMap} />
+      <PrivateRoute exact path="/schedule" component={Schedule} />
       
-      <Route exact path="/schedule/:id" component={Map} />
-      <Route path="/schedule/:id/edit" component={EditMap} />
-      <Route exact path="/add-to-schedule" component={AddScheduleItem} />
+      <PrivateRoute exact path="/schedule/:id" component={Map} />
+      <PrivateRoute path="/schedule/:id/edit" component={EditMap} />
+      <PrivateRoute exact path="/add-to-schedule" component={AddScheduleItem} />
      
       
       
