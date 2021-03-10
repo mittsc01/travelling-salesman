@@ -18,6 +18,7 @@ export default function AddScheduleItem(props){
 
     const handleSubmit =  async (e) => {
         e.preventDefault()
+        console.log(e.target.date.value)
         const postBody = {
             route_id: e.target.route.value,
             title: e.target.title.value,

@@ -9,6 +9,7 @@ export default function RouteList(props){
         }
     ]
     const [routes,setRoutes] = useState([])
+    const [error,setError] = useState(null)
     useEffect( () => {
         
         (async () => {
@@ -20,9 +21,17 @@ export default function RouteList(props){
     }, [props])
 
     const handleDelete = async (id) => {
-        await RoutesService.deleteRoute(id)
-        const routes = await RoutesService.getRoutes(props)
+        try {
+            await RoutesService.deleteRoute(id)
+            console.log('hello')
+        const routes = RoutesService.getRoutes(props)
         setRoutes(routes)
+        }
+        catch(e){
+            
+            setError('Could not delete the route because schedule items are using it. Delete schedule items first.')
+            console.log(error)
+        }
     }
 
     return (
@@ -34,6 +43,7 @@ export default function RouteList(props){
                         <Link to={`/routes/${item.id}`}>{item.title}</Link>
                         <button>Edit</button>
                         <button onClick={() => handleDelete(item.id)}>Delete</button>
+                    <span>{error}</span>
 
                     </li>
                     )
