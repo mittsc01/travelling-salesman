@@ -21,14 +21,14 @@ function EditMap(props) {
   }, [props])
 const refreshPoints = async () => {
   const routes = await RoutesService.getRoutes(props)
-      //console.log(routes)
+      
       if (routes.length > 0) {
         const markers = await RoutesService.getPoints(props.match.params.id)
         if (markers.length > 0) {
           markers.sort((a, b) => a.index - b.index)
 
         }
-        //const newMarkers = markers.map(marker=>{return {lat:marker.lat,lng: marker.lng}})
+        
 
         setPoints([...markers])
 
@@ -37,7 +37,7 @@ const refreshPoints = async () => {
 
 
       const theOne = routes.find(route => {
-        //console.log(route.id,props.match.params.id)
+        
         return route.id === parseInt(props.match.params.id)
       })
       setTitle(theOne.title)
@@ -48,13 +48,13 @@ const refreshPoints = async () => {
       : 1
     setPoints([...points, { ...e.latlng, index: newIndex }])
     setModified(true)
-    //console.log(points)
+    
   }
 
   const handleDrag = (e, idx) => {
     points[idx].lat = e.target._latlng.lat
     points[idx].lng = e.target._latlng.lng
-    console.log(points)
+
     setPoints([...points])
     setModified(true)
   }
@@ -65,14 +65,20 @@ const refreshPoints = async () => {
 
   const save = async (e) => {
     e.preventDefault()
-    //console.log(e.target)
+    
     const routeBody = { title: e.target.title.value }
-    //console.log(points)
+    
     const pointsBody = points
+    if (routeBody.title && pointsBody.length){
+
     await RoutesService.updateRoute(routeBody, props.match.params.id)
     await RoutesService.updatePoints(pointsBody, props.match.params.id)
     await refreshPoints()
     setModified(false)
+    }
+    else {
+      alert('Please ensure that the route has points and a title.')
+  }
 
   }
   const handleRemove = (e) => {

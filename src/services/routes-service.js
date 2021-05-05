@@ -62,7 +62,7 @@ const RoutesService = {
                : res.json()
            )
            .then((res) => {
-             //console.log(res)
+             
             return fetch(`${config.API_ENDPOINT}/points/${res.id}`, {
               method: 'POST',
               headers: {

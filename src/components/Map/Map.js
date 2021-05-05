@@ -16,19 +16,19 @@ export default function Map(props){
     (async () => {
         const runs =  await RoutesService.getSchedule()
         const theOne = runs.find(run => {
-            //console.log(route.id,props.match.params.id)
+            
             return run.id === parseInt(props.match.params.id)
           })
         setRun(theOne)
-        //console.log(routes)
+        
         if (runs.length !==0){
-            console.log(theOne.route_id)
+            
           const markers = await RoutesService.getPoints(theOne.route_id)
           if (markers.length !==0){
             markers.sort((a,b) => a.index-b.index)
             
           }
-          //console.log(markers)
+          
           setPoints(markers)
           
           

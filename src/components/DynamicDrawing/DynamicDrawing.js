@@ -7,16 +7,13 @@ export default function DynamicDrawing(props) {
     
     const map = useMapEvents({
       click(e) {
-        //console.log(position)
-        //map.locate()
+
         props.handleAdd(e)
-        
-        
-        //map.flyTo(e.latlng, map.getZoom())
+
       },
       
     })
-    //console.log(props.points)
+
     if (props.points.length > 0 && tog) {
       map.fitBounds(props.points.map(point=>[point.lat,point.lng]))
       setTog(false)

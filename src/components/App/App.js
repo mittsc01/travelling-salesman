@@ -90,7 +90,7 @@ class App extends React.Component {
     this.props.history.push('/login')
   }
 showConfirm = () => {
-  console.log('hi')
+  
   return window.confirm("Are you sure you want to leave?")
 }
 render(){

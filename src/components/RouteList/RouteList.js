@@ -23,14 +23,13 @@ export default function RouteList(props){
     const handleDelete = async (id) => {
         try {
             await RoutesService.deleteRoute(id)
-            console.log('hello')
         const routes = RoutesService.getRoutes(props)
         setRoutes(routes)
         }
         catch(e){
             
             setError('Could not delete the route because schedule items are using it. Delete schedule items first.')
-            console.log(error)
+            
         }
     }
 

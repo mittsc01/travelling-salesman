@@ -11,10 +11,10 @@ export default function Schedule(props){
         (async () => {
             const myRuns = await RoutesService.getSchedule()
             
-            //console.log(myRuns)
+            
              
     
-            //routes.find(route => route.id === props.match.params.id)
+            
         setRuns(myRuns)})()
     }, [props])
 

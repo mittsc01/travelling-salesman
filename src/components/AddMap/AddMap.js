@@ -3,17 +3,32 @@ import { MapContainer, TileLayer, LayersControl,LayerGroup} from 'react-leaflet'
 import React, { useState,useEffect} from 'react'
 import DynamicDrawing from '../DynamicDrawing/DynamicDrawing';
 import RoutesService from '../../services/routes-service'
-import { Route } from 'react-router-dom';
+//TODO: get geolocation working
 
 function AddMap(props) {
   //const [map,setMap] = useState(null)
   const [unit,setUnit] = useState('M')
   const [points, setPoints] = useState([])
   const [title, setTitle] = useState(null)
-  const [center,setCenter] = useState({})
+  const [center,setCenter] = useState([])
 
+  
 
-
+  function getLatLon(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+      
+      return [latitude,longitude]
+  }
+  useEffect(() => {
+    ;
+    (async () => {
+      navigator.geolocation.getCurrentPosition(getLatLon)
+      
+      
+      
+    })()
+  }, [props])
 const addPoint = (e) => {
     const newIndex = points.length
     ? points[points.length-1].index+1
@@ -23,7 +38,7 @@ const addPoint = (e) => {
 
 const handleDrag = (e,idx) => {
   points[idx] = e.target._latlng
-  //console.log(points,idx)
+  
   setPoints([...points])
 }
 const handleClear = (e,idx) => {
@@ -32,7 +47,7 @@ const handleClear = (e,idx) => {
 
 const save = (e) => {
   e.preventDefault()
-  //console.log(e.target.title.value)
+  
   
   const postBody = {title: e.target.title.value, points:points}
   if (postBody.title && postBody.points.length){
@@ -111,7 +126,7 @@ function computePathLength(points,unit){
           <label htmlFor="title">Title</label>
           <input name="title" type="text" required />
  
-      <MapContainer id="map-container" center={Object.keys(center).length?{...center}:{lat: 43.30, lng: -91.79}} zoom={15} scrollWheelZoom={true}>
+      <MapContainer id="map-container" center={center.length?{...center}:[43.30, -91.79]} zoom={15} scrollWheelZoom={true}>
       <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" 

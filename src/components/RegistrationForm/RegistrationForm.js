@@ -37,7 +37,7 @@ export default class RegistrationForm extends React.Component {
             })
         }
         else {
-          //console.log(password,repeat_password)
+          
           alert('Passwords do not match. Please try again.')
           password.value = ''
           repeat_password.value = ''
