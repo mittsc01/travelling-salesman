@@ -2,12 +2,7 @@ import React, {useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import RoutesService from '../../services/routes-service'
 export default function RouteList(props){
-    const fakeData = [
-        {
-            id:1,
-            name: 'Mail route'
-        }
-    ]
+
     const [routes,setRoutes] = useState([])
     const [error,setError] = useState(null)
     useEffect( () => {
@@ -16,7 +11,7 @@ export default function RouteList(props){
             const routes =  await RoutesService.getRoutes(props)
              
     
-            //routes.find(route => route.id === props.match.params.id)
+            
         setRoutes(routes)})()
     }, [props])
 
@@ -39,8 +34,8 @@ export default function RouteList(props){
                 {routes.map(item=>{
                     return (
                     <li key={`route-${item.id}`}>
-                        <Link to={`/routes/${item.id}`}>{item.title}</Link>
-                        <button>Edit</button>
+                        <span>{item.title}</span>
+                        <button onClick={() => props.history.push(`/routes/${item.id}`)}>Edit</button>
                         <button onClick={() => handleDelete(item.id)}>Delete</button>
                     <span>{error}</span>
 

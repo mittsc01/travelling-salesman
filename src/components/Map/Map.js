@@ -3,13 +3,14 @@ import StaticDrawing from '../StaticDrawing/StaticDrawing'
 import Helmet from 'react-helmet'
 import {MapContainer,TileLayer, useMap,LayersControl,} from 'react-leaflet'
 import RoutesService from '../../services/routes-service'
-
+import './Map.css'
 export default function Map(props){
   //const [map,setMap] = useState(null)
   const [unit,setUnit] = useState('M')
   //GET API_ENDPOINT/routes/${props.match.params.id}
   const [points, setPoints] = useState([])
   const [run,setRun] = useState({})
+  
   
   useEffect( () => {
         
@@ -20,6 +21,7 @@ export default function Map(props){
             return run.id === parseInt(props.match.params.id)
           })
         setRun(theOne)
+        console.log(theOne)
         
         if (runs.length !==0){
             
@@ -71,6 +73,12 @@ function distance(lat1, lon1, lat2, lon2, unit) {
   }
 }
 
+function prettifyDate(astring){
+  const [year,month,day] = astring.split('-')
+  const months =['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December']
+  return `${parseInt(day)} ${months[month-1]}, ${year}`
+}
+
 function computePathLength(points,unit){
   if (points.length === 0){return 0}
   let d = 0 
@@ -87,7 +95,11 @@ function computePathLength(points,unit){
           integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
           crossorigin="" />
       </Helmet>
-        <h2>{run.title}</h2>
+      <div className='errand-info'>
+      <h2>{run.title}</h2>
+        <p>{run.date?prettifyDate(run.date):null}</p>
+      </div>
+        
       <MapContainer id="map-container" center={{lat: 43.30, lng: -91.79}} zoom={15} scrollWheelZoom={true}>
        
         <LayersControl position="topright">
@@ -104,10 +116,7 @@ function computePathLength(points,unit){
         /> 
         </LayersControl.BaseLayer>
         </LayersControl>
-       {/* <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png" opacity={0.5}
-        /> */}
+       
         <StaticDrawing points={[...points]}/>
         
       </MapContainer>
