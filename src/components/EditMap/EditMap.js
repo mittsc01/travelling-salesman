@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import DynamicDrawing from '../DynamicDrawing/DynamicDrawing';
 import RoutesService from '../../services/routes-service'
 import { usePrompt } from '../../usePrompt'
+import './EditMap.css'
 
 function EditMap(props) {
   //const [map,setMap] = useState(null)
@@ -16,39 +17,39 @@ function EditMap(props) {
 
     (async () => {
       await refreshPoints()
-      
+
     })()
   }, [props])
-const refreshPoints = async () => {
-  const routes = await RoutesService.getRoutes(props)
-      
-      if (routes.length > 0) {
-        const markers = await RoutesService.getPoints(props.match.params.id)
-        if (markers.length > 0) {
-          markers.sort((a, b) => a.index - b.index)
+  const refreshPoints = async () => {
+    const routes = await RoutesService.getRoutes(props)
 
-        }
-        
-
-        setPoints([...markers])
-
+    if (routes.length > 0) {
+      const markers = await RoutesService.getPoints(props.match.params.id)
+      if (markers.length > 0) {
+        markers.sort((a, b) => a.index - b.index)
 
       }
 
 
-      const theOne = routes.find(route => {
-        
-        return route.id === parseInt(props.match.params.id)
-      })
-      setTitle(theOne.title)
-}
+      setPoints([...markers])
+
+
+    }
+
+
+    const theOne = routes.find(route => {
+
+      return route.id === parseInt(props.match.params.id)
+    })
+    setTitle(theOne.title)
+  }
   const addPoint = (e) => {
     const newIndex = points.length
       ? points[points.length - 1].index + 1
       : 1
     setPoints([...points, { ...e.latlng, index: newIndex }])
     setModified(true)
-    
+
   }
 
   const handleDrag = (e, idx) => {
@@ -65,20 +66,20 @@ const refreshPoints = async () => {
 
   const save = async (e) => {
     e.preventDefault()
-    
-    const routeBody = { title: e.target.title.value }
-    
-    const pointsBody = points
-    if (routeBody.title && pointsBody.length){
 
-    await RoutesService.updateRoute(routeBody, props.match.params.id)
-    await RoutesService.updatePoints(pointsBody, props.match.params.id)
-    await refreshPoints()
-    setModified(false)
+    const routeBody = { title: e.target.title.value }
+
+    const pointsBody = points
+    if (routeBody.title && pointsBody.length) {
+
+      await RoutesService.updateRoute(routeBody, props.match.params.id)
+      await RoutesService.updatePoints(pointsBody, props.match.params.id)
+      await refreshPoints()
+      setModified(false)
     }
     else {
       alert('Please ensure that the route has points and a title.')
-  }
+    }
 
   }
   const handleRemove = (e) => {
@@ -140,8 +141,23 @@ const refreshPoints = async () => {
       </Helmet>
 
       <form onSubmit={save}>
-        <label htmlFor="title">Title</label>
-        <input name="title" type="text" defaultValue={title} onChange={() => setModified(true)} />
+        <div className="form-div">
+          <label className="title" htmlFor="title">Title</label>
+          <input name="title" type="text" defaultValue={title} onChange={() => setModified(true)} />
+          <fieldset>
+            <legend>Map config</legend>
+            <button onClick={toggleUnit}>{unit === 'M' ? 'Metric' : 'Imperial'}</button>
+            <button onClick={handleClear}>Clear</button>
+            <button onClick={handleRemove}>Remove last</button>
+          </fieldset>
+        </div>
+
+        <button className="save-button" type="submit" disabled={!modified}>Save</button>
+
+
+
+
+        <span className="distance-display">{`Route distance: ${computePathLength(points, unit).toFixed(1)} ${unit === 'M' ? 'mi' : 'km'}`} </span>
         <MapContainer id="map-container" center={[43.30, -91.79]} zoom={15} scrollWheelZoom={true}>
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -176,15 +192,10 @@ const refreshPoints = async () => {
           <DynamicDrawing modified={modified} handleDrag={handleDrag} handleAdd={addPoint} points={[...points]} />
 
         </MapContainer>
-        <button type="submit" disabled={!modified}>Save</button>
+
       </form>
 
-      <button onClick={handleClear}>Clear</button>
-      <button onClick={handleRemove}>Remove last</button>
-      <button onClick={toggleUnit}>{unit === 'M' ? 'Metric' : 'Imperial'}</button>
 
-
-      <span>{`Route distance: ${computePathLength(points, unit).toFixed(1)} ${unit === 'M' ? 'mi' : 'km'}`} </span>
     </div>
   );
 }

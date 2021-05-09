@@ -31,6 +31,14 @@ exports[`renders the UI as expected 1`] = `
     <p>
       Create routes and add them to your schedule.
     </p>
+    <p>
+      Click the 'Go' button for a live demo! 
+      <button
+        onClick={[Function]}
+      >
+        Go
+      </button>
+    </p>
   </div>
 </div>
 `;

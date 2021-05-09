@@ -14,7 +14,8 @@
     font-family: 'Roboto Mono', monospace;
 }
 body {
-  font-family: 'Roboto Mono', monospace
+  font-family: 'Roboto Mono', monospace;
+  background-color: #f3edde;
 }
 a {
   text-decoration: none
@@ -28,7 +29,14 @@ li {
 h1 {
   text-align: center
 }
-
+form {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+  
+  
+}
 
 a:active {
   color: blue
