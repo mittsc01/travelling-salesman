@@ -21,7 +21,7 @@ export default function Map(props){
             return run.id === parseInt(props.match.params.id)
           })
         setRun(theOne)
-        console.log(theOne)
+        
         
         if (runs.length !==0){
             
@@ -99,7 +99,7 @@ function computePathLength(points,unit){
       <h2>{run.title}</h2>
         <p>{run.date?prettifyDate(run.date):null}</p>
       </div>
-        
+      <span>{`Route distance: ${computePathLength(points,unit).toFixed(1)} ${unit==='M'?'mi':'km'}`} </span>
       <MapContainer id="map-container" center={{lat: 43.30, lng: -91.79}} zoom={15} scrollWheelZoom={true}>
        
         <LayersControl position="topright">
@@ -122,7 +122,7 @@ function computePathLength(points,unit){
       </MapContainer>
       
       <button onClick={toggleUnit}>{unit==='M'?'Metric':'Imperial'}</button>
-      <span>{`Route distance: ${computePathLength(points,unit).toFixed(1)} ${unit==='M'?'mi':'km'}`} </span>
+      
     </div>
   );
 }

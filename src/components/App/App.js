@@ -1,8 +1,8 @@
 import './App.css';
-import React, { useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import EditMap from '../EditMap/EditMap';
 import Schedule from '../Schedule/Schedule'
-import {Link, Route, Switch} from 'react-router-dom'
+import { Link, Route, Switch } from 'react-router-dom'
 import Map from '../Map/Map'
 import RouteList from '../RouteList/RouteList';
 import About from '../About/About'
@@ -19,7 +19,7 @@ import AddMap from '../AddMap/AddMap'
 
 class App extends React.Component {
   state = {
-    login: false
+    login: TokenService.hasAuthToken()
   }
   componentDidMount() {
     /*
@@ -75,68 +75,71 @@ class App extends React.Component {
   }
 
   handleLogin = () => {
-    this.forceUpdate()
+    this.setState({ login: true })
   }
   handleLogout = () => {
     TokenService.clearAuthToken()
     /* when logging out, clear the callbacks to the refresh api and idle auto logout */
     TokenService.clearCallbackBeforeExpiry()
     IdleService.unRegisterIdleResets()
-    this.forceUpdate()
-  
-    
+    this.setState({ login: false })
+
+
   }
   handleRegister = () => {
     this.props.history.push('/login')
   }
-showConfirm = () => {
-  
-  return window.confirm("Are you sure you want to leave?")
-}
-render(){
-  const contextValue = {
-    login: this.state.login,
-    handleLogin: this.handleLogin,
-    handleLogout: this.handleLogout,
+  showConfirm = () => {
 
+    return window.confirm("Are you sure you want to leave?")
   }
-  return (
-    <div className="main">
-      <header>
-        <Link to='/'>About</Link>
-        {!TokenService.hasAuthToken()
-          && <Link to="/login">Login</Link>
-          }
-          {!TokenService.hasAuthToken()
-          && <Link to="/register">Register</Link>
-          }
-        {TokenService.hasAuthToken() && <Link to='/routes'>Routes</Link>}
-        {TokenService.hasAuthToken() && <Link to='/schedule'>Schedule</Link>}
-        {TokenService.hasAuthToken()
-          && <Link onClick={this.handleLogout} to="/">Logout</Link>
-          }
+  render() {
+    const contextValue = {
+      login: this.state.login,
+      handleLogin: this.handleLogin,
+      handleLogout: this.handleLogout,
+
+    }
+    return (
+      <div className="main">
+        <header>
+          <Link to='/'>About</Link>
+          {this.state.login ?
+            (<>
+              <Link to='/routes'>Routes</Link>
+              <Link to='/schedule'>Schedule</Link>
+              <Link onClick={this.handleLogout} to="/">Logout</Link>
+            </>)
+            :
+            (<>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </>)}
+
+
+        </header>
+        <LoginContext.Provider value={contextValue}>
+          <PublicOnlyRoute exact path='/login' component={LoginForm} />
         
-      </header>
-      <LoginContext.Provider value={contextValue}>
-        <PublicOnlyRoute exact path='/login' component={LoginForm} />
-      </LoginContext.Provider>
-      <PublicOnlyRoute exact path='/register' component={RegistrationForm} />
-      <Route exact path="/" component={About}/>
-      <PrivateRoute exact path='/routes'  component={RouteList} />
-      <PrivateRoute path="/add-route" component={AddMap} />
-      <PrivateRoute path="/routes/:id" onLeave={this.showConfirm} component={EditMap} />
-      <PrivateRoute exact path="/schedule" component={Schedule} />
-      
-      <PrivateRoute exact path="/schedule/:id" component={Map} />
-      <PrivateRoute path="/schedule/:id/edit" component={EditMap} />
-      <PrivateRoute exact path="/add-to-schedule" component={AddScheduleItem} />
-     
-      
-      
-      
-      
-    </div>
-  );}
+        <PublicOnlyRoute exact path='/register' component={RegistrationForm} />
+        <Route exact path="/" component={About} />
+        <PrivateRoute exact path='/routes' component={RouteList} />
+        <PrivateRoute path="/add-route" component={AddMap} />
+        <PrivateRoute path="/routes/:id" onLeave={this.showConfirm} component={EditMap} />
+        <PrivateRoute exact path="/schedule" component={Schedule} />
+
+        <PrivateRoute exact path="/schedule/:id" component={Map} />
+        <PrivateRoute path="/schedule/:id/edit" component={EditMap} />
+        <PrivateRoute exact path="/add-to-schedule" component={AddScheduleItem} />
+        </LoginContext.Provider>
+
+
+
+
+
+      </div>
+    );
+  }
 }
 
 export default App;

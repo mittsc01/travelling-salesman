@@ -16,6 +16,22 @@ fieldset button {
     color: white;
     border: 1px solid;
 }
+input {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(76, 71, 70, 0.16);
+    border-radius: 4px;
+    background-color: #fff;
+    
+}
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+
 
 .save-button {
     display: block;

@@ -1,8 +1,8 @@
 import React, {useContext} from 'react'
-import RaceContext from '../../LoginContext'
+import LoginContext from '../../LoginContext'
 import AuthApiService from '../../services/auth-api-service'
 export default function About(props){
-    const context = useContext(RaceContext)
+    const context = useContext(LoginContext)
     const logIn = () => {
         AuthApiService.postLogin({
             user_name: 'demo',
@@ -15,7 +15,7 @@ export default function About(props){
             })
             .catch(res => {
               //alert(res.error)
-              //console.log(res)
+              
               
             
             })

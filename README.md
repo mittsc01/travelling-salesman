@@ -15,7 +15,7 @@
 
 ## Description
 
-The Travelling Salesman app allows the user to create an account and then create routes using an interactive map.  The user is then able to schedule routes for different days.
+The Travelling Salesman app allows the user to create an account and then create routes using an interactive map.  The user is then able to add routes to their schedule.
 
 ## Technologies
 * ReactJS

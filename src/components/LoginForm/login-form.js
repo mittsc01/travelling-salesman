@@ -32,11 +32,15 @@ export default class LoginForm extends React.Component {
 
     render(){
         return (<form className='login-form' onSubmit={this.handleSubmitJwtAuth}>
-            <label htmlFor="user_name">username</label>
+          <div className="form-div">
+          <label htmlFor="user_name">username</label>
             <input type='text' placeholder="username" name="user_name"></input>
             <label htmlFor="password">password</label>
             <input type="password" placeholder="password" name="password"></input>
-            <button className="submit" type="submit">Log in</button>
+            
+          </div>
+          <button className="save-button" type="submit">Log in</button>
+            
         </form>)
     }
 }

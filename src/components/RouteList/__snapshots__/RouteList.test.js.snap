@@ -5,6 +5,7 @@ exports[`renders the UI as expected 1`] = `
   className="route-list"
 >
   <ul />
+  <span />
   <button
     onClick={[Function]}
     type="button"

@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, LayersControl,LayerGroup} from 'react-leaflet'
 import React, { useState,useEffect} from 'react'
 import DynamicDrawing from '../DynamicDrawing/DynamicDrawing';
 import RoutesService from '../../services/routes-service'
+import '../EditMap/EditMap.css'
 //TODO: get geolocation working
 
 function AddMap(props) {
@@ -10,20 +11,31 @@ function AddMap(props) {
   const [unit,setUnit] = useState('M')
   const [points, setPoints] = useState([])
   const [title, setTitle] = useState(null)
-  const [center,setCenter] = useState([])
+  const [center,setCenter] = useState([41, -91.78753776396223])
+  const [showMap,setShowMap] = useState(true)
+  
 
   
 
-  function getLatLon(position) {
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-      
-      return [latitude,longitude]
-  }
+
   useEffect(() => {
-    ;
+    
+    
     (async () => {
-      navigator.geolocation.getCurrentPosition(getLatLon)
+      navigator.geolocation.getCurrentPosition((position) => {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+          
+          setShowMap(false)
+          setCenter([latitude,longitude])
+          setTimeout(setShowMap(true),500)
+          
+          
+          
+      }
+
+      )
+      //console.log('hello2')
       
       
       
@@ -113,7 +125,7 @@ function computePathLength(points,unit){
   }
   return d
 }
-
+//console.log(center)
   return (
     <div className="edit">
       <Helmet>
@@ -123,10 +135,25 @@ function computePathLength(points,unit){
       </Helmet>
       <h2>{title}</h2>
       <form onSubmit={save}>
-          <label htmlFor="title">Title</label>
+        <div className="form-div">
+        <label className="title" htmlFor="title">Title</label>
           <input name="title" type="text" required />
+          <fieldset>
+          
+            <legend>Map config</legend>
+            <button onClick={toggleUnit}>{unit === 'M' ? 'Metric' : 'Imperial'}</button>
+            <button onClick={handleClear}>Clear</button>
+            <button onClick={handleRemove}>Remove last</button>
+          </fieldset>
+          
+        </div>
+        <button className="save-button" type="submit" >Add Route</button>  
+      
+      
+      <span className="distance-display">{`Route distance: ${computePathLength(points,unit).toFixed(1)} ${unit==='M'?'mi':'km'}`} </span>
  
-      <MapContainer id="map-container" center={center.length?{...center}:[43.30, -91.79]} zoom={15} scrollWheelZoom={true}>
+      {showMap?
+      <MapContainer id="map-container" center={center} zoom={15} scrollWheelZoom={true}>
       <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" 
@@ -160,15 +187,12 @@ function computePathLength(points,unit){
         <DynamicDrawing  handleDrag={handleDrag} handleAdd={addPoint} points={[...points]}/>
         
       </MapContainer>
-      <button type="submit" >Add Route</button>
+      : null
+      }
+      
       </form>
 
-      <button onClick={handleClear}>Clear</button>
-      <button onClick={handleRemove}>Remove last</button>
-      <button onClick={toggleUnit}>{unit==='M'?'Metric':'Imperial'}</button>
       
-      
-      <span>{`Route distance: ${computePathLength(points,unit).toFixed(1)} ${unit==='M'?'mi':'km'}`} </span>
     </div>
   );
 }

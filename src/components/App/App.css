@@ -6,12 +6,20 @@
   }
   header {
     display: flex;
-    background-color:#c5ae28;
+    background-color:#bc8e60;
     color: black;
     justify-content: space-around;
     padding-top: 25px;
     height: 50px;
     font-family: 'Roboto Mono', monospace;
+}
+header{
+  background-color: #034444;
+  
+  font-size: 18px;
+}
+header a {
+  color: white;
 }
 body {
   font-family: 'Roboto Mono', monospace;
@@ -38,12 +46,45 @@ form {
   
 }
 
+input {
+  width: 100%;
+  margin-right: auto;
+  margin-bottom: 20px;
+  margin-left: auto;
+}
+.save-button {
+  display: block;
+  max-width: 300px;
+  width: 80%;
+  padding: 7px 40px;
+  margin: 0 auto;
+  background-color: #00737a;
+  border: 0;
+  border-radius: 4px;
+  color: #fffcf5;
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.form-div {
+  background-color: #044545;
+  color: white;
+  padding: 20px;
+  
+  margin-bottom: 20px;
+  line-height: 27px;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+
+
+a:hover {
+  color: rgb(161, 180, 75)
+}
 a:active {
   color: blue
-}
-a:visited {
-  color: blue
-}
-a:hover {
-  color: purple
 }

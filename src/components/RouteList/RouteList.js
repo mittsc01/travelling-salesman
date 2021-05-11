@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react'
-import {Link} from 'react-router-dom'
+
 import RoutesService from '../../services/routes-service'
 export default function RouteList(props){
 
@@ -37,12 +37,13 @@ export default function RouteList(props){
                         <span>{item.title}</span>
                         <button onClick={() => props.history.push(`/routes/${item.id}`)}>Edit</button>
                         <button onClick={() => handleDelete(item.id)}>Delete</button>
-                    <span>{error}</span>
+                    
 
                     </li>
                     )
                 })}
             </ul>
+            <span>{error}</span>
             <button onClick={() => props.history.push('/add-route')} type="button">Add Route</button>
         </div>
     )

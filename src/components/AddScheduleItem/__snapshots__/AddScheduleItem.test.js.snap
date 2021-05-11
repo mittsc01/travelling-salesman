@@ -5,34 +5,44 @@ exports[`renders the UI as expected 1`] = `
   className="add-schedule"
   onSubmit={[Function]}
 >
-  <select
-    id="route"
-    name="route"
-    required={true}
-  />
-  <label
-    htmlFor="date"
+  <div
+    className="form-div"
   >
-    Date
-  </label>
-  <input
-    id="date"
-    name="date"
-    required={true}
-    type="date"
-  />
-  <label
-    htmlFor="title"
-  >
-    Title
-  </label>
-  <input
-    id="title"
-    name="title"
-    required={true}
-    type="text"
-  />
+    <label
+      htmlFor="route"
+    >
+      Route
+    </label>
+    <select
+      id="route"
+      name="route"
+      required={true}
+    />
+    <label
+      htmlFor="date"
+    >
+      Date
+    </label>
+    <input
+      id="date"
+      name="date"
+      required={true}
+      type="date"
+    />
+    <label
+      htmlFor="title"
+    >
+      Title
+    </label>
+    <input
+      id="title"
+      name="title"
+      required={true}
+      type="text"
+    />
+  </div>
   <button
+    className="save-button"
     type="submit"
   >
     Submit

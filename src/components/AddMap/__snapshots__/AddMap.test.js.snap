@@ -8,43 +8,56 @@ exports[`renders the UI as expected 1`] = `
   <form
     onSubmit={[Function]}
   >
-    <label
-      htmlFor="title"
-    >
-      Title
-    </label>
-    <input
-      name="title"
-      required={true}
-      type="text"
-    />
     <div
-      id="map-container"
-    />
+      className="form-div"
+    >
+      <label
+        className="title"
+        htmlFor="title"
+      >
+        Title
+      </label>
+      <input
+        name="title"
+        required={true}
+        type="text"
+      />
+      <fieldset>
+        <legend>
+          Map config
+        </legend>
+        <button
+          onClick={[Function]}
+        >
+          Metric
+        </button>
+        <button
+          onClick={[Function]}
+        >
+          Clear
+        </button>
+        <button
+          onClick={[Function]}
+        >
+          Remove last
+        </button>
+      </fieldset>
+    </div>
     <button
+      className="save-button"
       type="submit"
     >
       Add Route
     </button>
+    <span
+      className="distance-display"
+    >
+      Route distance: 0.0 mi
+       
+    </span>
+    <div
+      id="map-container"
+    />
   </form>
-  <button
-    onClick={[Function]}
-  >
-    Clear
-  </button>
-  <button
-    onClick={[Function]}
-  >
-    Remove last
-  </button>
-  <button
-    onClick={[Function]}
-  >
-    Metric
-  </button>
-  <span>
-    Route distance: 0.0 mi
-     
-  </span>
 </div>
 `;

@@ -10,6 +10,10 @@ exports[`renders the UI as expected 1`] = `
     <h2 />
     <p />
   </div>
+  <span>
+    Route distance: 0.0 mi
+     
+  </span>
   <div
     id="map-container"
   />
@@ -18,9 +22,5 @@ exports[`renders the UI as expected 1`] = `
   >
     Metric
   </button>
-  <span>
-    Route distance: 0.0 mi
-     
-  </span>
 </div>
 `;

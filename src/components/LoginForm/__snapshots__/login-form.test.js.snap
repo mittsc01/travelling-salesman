@@ -5,28 +5,32 @@ exports[`renders the UI as expected 1`] = `
   className="login-form"
   onSubmit={[Function]}
 >
-  <label
-    htmlFor="user_name"
+  <div
+    className="form-div"
   >
-    username
-  </label>
-  <input
-    name="user_name"
-    placeholder="username"
-    type="text"
-  />
-  <label
-    htmlFor="password"
-  >
-    password
-  </label>
-  <input
-    name="password"
-    placeholder="password"
-    type="password"
-  />
+    <label
+      htmlFor="user_name"
+    >
+      username
+    </label>
+    <input
+      name="user_name"
+      placeholder="username"
+      type="text"
+    />
+    <label
+      htmlFor="password"
+    >
+      password
+    </label>
+    <input
+      name="password"
+      placeholder="password"
+      type="password"
+    />
+  </div>
   <button
-    className="submit"
+    className="save-button"
     type="submit"
   >
     Log in
