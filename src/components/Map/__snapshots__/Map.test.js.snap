@@ -9,18 +9,20 @@ exports[`renders the UI as expected 1`] = `
   >
     <h2 />
     <p />
+    <span
+      className="distance-display"
+    >
+      Route distance: 0.0 mi
+      <button
+        onClick={[Function]}
+      >
+        Metric
+      </button>
+       
+    </span>
   </div>
-  <span>
-    Route distance: 0.0 mi
-     
-  </span>
   <div
     id="map-container"
   />
-  <button
-    onClick={[Function]}
-  >
-    Metric
-  </button>
 </div>
 `;

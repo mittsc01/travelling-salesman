@@ -28,17 +28,19 @@ exports[`renders the UI as expected 1`] = `
     <h1>
       Travelling Salesman App
     </h1>
-    <p>
-      Create routes and add them to your schedule.
-    </p>
-    <p>
-      Click the 'Go' button for a live demo! 
+    <section
+      id="about"
+    >
+      <p>
+        Create routes and add them to your schedule. Click 'Go' for a live demo! 
+      </p>
       <button
+        className="save-button"
         onClick={[Function]}
       >
         Go
       </button>
-    </p>
+    </section>
   </div>
 </div>
 `;

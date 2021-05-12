@@ -18,17 +18,19 @@ exports[`renders the UI as expected 1`] = `
       name="route"
       required={true}
     />
-    <label
-      htmlFor="date"
-    >
-      Date
-    </label>
-    <input
-      id="date"
-      name="date"
-      required={true}
-      type="date"
-    />
+    <div>
+      <label
+        htmlFor="date"
+      >
+        Date
+      </label>
+      <input
+        id="date"
+        name="date"
+        required={true}
+        type="date"
+      />
+    </div>
     <label
       htmlFor="title"
     >
