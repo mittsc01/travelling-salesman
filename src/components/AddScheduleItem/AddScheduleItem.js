@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import RoutesService from '../../services/routes-service'
-
+import '../EditMap/EditMap.css'
 
 export default function AddScheduleItem(props) {
     const [routes, setRoutes] = useState([])
-    const [schedule, setSchedule] = useState([])
+    
 
     useEffect(() => {
 
@@ -12,7 +12,7 @@ export default function AddScheduleItem(props) {
             const routes = await RoutesService.getRoutes(props)
 
 
-            //routes.find(route => route.id === props.match.params.id)
+            
             setRoutes(routes)
         })()
     }, [props])
@@ -37,8 +37,11 @@ export default function AddScheduleItem(props) {
                 <select id="route" name="route" required>
                     {routes.length ? routes.map((item, i) => <option key={`route-${i}`} value={item.id}>{item.title}</option>) : null}
                 </select>
+                <div>
                 <label htmlFor="date">Date</label>
                 <input type="date" name="date" id="date" required />
+                </div>
+                
                 <label htmlFor="title">Title</label>
                 <input type="text" name="title" id="title" required />
             </div>

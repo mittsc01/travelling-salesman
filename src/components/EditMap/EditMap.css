@@ -16,12 +16,14 @@ fieldset button {
     color: white;
     border: 1px solid;
 }
-input {
+input, select {
     border-style: solid;
     border-width: 1px;
     border-color: rgba(76, 71, 70, 0.16);
     border-radius: 4px;
     background-color: #fff;
+    width: 90%;
+    margin-bottom: 10px
     
 }
 button:disabled,

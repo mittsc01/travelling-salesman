@@ -1,3 +1,17 @@
-li {
-    justify-content: space-around;
+span {
+    display: inline-block
 }
+
+.form-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+

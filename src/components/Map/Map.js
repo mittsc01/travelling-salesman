@@ -4,6 +4,7 @@ import Helmet from 'react-helmet'
 import {MapContainer,TileLayer, useMap,LayersControl,} from 'react-leaflet'
 import RoutesService from '../../services/routes-service'
 import './Map.css'
+import '../EditMap/EditMap.css'
 export default function Map(props){
   //const [map,setMap] = useState(null)
   const [unit,setUnit] = useState('M')
@@ -98,8 +99,10 @@ function computePathLength(points,unit){
       <div className='errand-info'>
       <h2>{run.title}</h2>
         <p>{run.date?prettifyDate(run.date):null}</p>
+        
+        <span className="distance-display">{`Route distance: ${computePathLength(points,unit).toFixed(1)} ${unit==='M'?'mi':'km'}`}<button onClick={toggleUnit}>{unit==='M'?'Metric':'Imperial'}</button> </span>
       </div>
-      <span>{`Route distance: ${computePathLength(points,unit).toFixed(1)} ${unit==='M'?'mi':'km'}`} </span>
+      
       <MapContainer id="map-container" center={{lat: 43.30, lng: -91.79}} zoom={15} scrollWheelZoom={true}>
        
         <LayersControl position="topright">
@@ -121,7 +124,7 @@ function computePathLength(points,unit){
         
       </MapContainer>
       
-      <button onClick={toggleUnit}>{unit==='M'?'Metric':'Imperial'}</button>
+      
       
     </div>
   );

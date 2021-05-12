@@ -1,0 +1,36 @@
+body {
+    color:#595352;
+}
+h1 {
+    color: #014748;
+    font-size: 20px;
+    line-height: 40px;
+}
+p {
+    color:#272424;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+}
+.save-button {
+    display: block;
+    max-width: 300px;
+    width: 80%;
+    padding: 7px 40px;
+    margin: 0 auto;
+    background-color: #00737a;
+    border: 0;
+    border-radius: 4px;
+    color: #fffcf5;
+    font-size: 14px;
+    line-height: 19px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+#about {
+    width: 100%;
+    align-items: center;
+}
+

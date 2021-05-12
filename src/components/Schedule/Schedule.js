@@ -43,20 +43,21 @@ export default function Schedule(props){
 
 
     }
-    function prettifyDate(date) {
-        const [year, month, day] = date.split('-')
-
-        return `${parseInt(month)}/${parseInt(day)}/${year}`
-    }
+    function prettifyDate(astring){
+        const [year,month,day] = astring.split('-')
+        const months =['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December']
+        return `${parseInt(day)} ${months[month-1]}, ${year}`
+      }
     
 
     return (
-        <div>
-            <ul>
+        <div >
+            <ul className="route-list">
         {runs.sort((a, b) => compareDates(a.date, b.date))
             .map(item=><li key={`run-${item.id}`}>
-            <span>{item.date?prettifyDate(item.date):null}</span>
-            <Link to={`/schedule/${item.id}`}>{`${item.title}`}</Link>
+            
+            <Link to={`/schedule/${item.id}`}>{item.date?prettifyDate(item.date):null}</Link>
+            
             <button onClick={(e) => handleDelete(e,item.id)}>Delete</button>
             </li>)
             

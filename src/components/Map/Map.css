@@ -1,4 +1,11 @@
 
 .errand-info {
     text-align: center;
+    
+}
+.distance-display {
+    width: 100%
+}
+button {
+    margin-left: 10px
 }
