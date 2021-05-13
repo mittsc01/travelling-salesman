@@ -34,9 +34,12 @@ export default function RouteList(props){
                 {routes.map(item=>{
                     return (
                     <li key={`route-${item.id}`}>
-                        <span>{item.title}</span>
+                        <span className="li-div">{item.title}</span>
+                        <div className="li-div">
                         <button onClick={() => props.history.push(`/routes/${item.id}`)}>Edit</button>
                         <button onClick={() => handleDelete(item.id)}>Delete</button>
+                        </div>
+                        
                     
 
                     </li>
@@ -44,7 +47,7 @@ export default function RouteList(props){
                 })}
             </ul>
             <span>{error}</span>
-            <button onClick={() => props.history.push('/add-route')} type="button">Add Route</button>
+            <button className="save-button" onClick={() => props.history.push('/add-route')} type="button">New Route</button>
         </div>
     )
 }

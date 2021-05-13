@@ -64,7 +64,7 @@ export default function Schedule(props){
             
         }
     </ul>
-    <button onClick={() => props.history.push('/add-to-schedule')}>Add to Schedule</button>
+    <button className="save-button" onClick={() => props.history.push('/add-to-schedule')}>Add to Schedule</button>
 
         </div>
     

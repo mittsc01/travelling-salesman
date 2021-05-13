@@ -12,6 +12,15 @@ li {
     display: flex;
     justify-content: space-between;
 }
+a {
+    color:#272424;
+}
+a:hover {
+    color: rgb(161, 180, 75)
+  }
+a:active {
+    color: blue
+  }
 
 
 
