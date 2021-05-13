@@ -24,7 +24,7 @@ The Travelling Salesman app allows the user to create an account and then create
 * CSS
 
 ## Screenshots
-![Race results detail screenshot](/public/screenshots-race-app/results-detail.png)
-![Race info screenshot](/public/screenshots-race-app/race-detail.png)
-![Add a race view screenshot](/public/screenshots-race-app/add-race.png)
-![Search for races screenshot](/public/screenshots-race-app/search-rac
+![Landing page view screenshot](/ts-screenshots/Landing.png)
+![Add Route view screenshot](/ts-screenshots/AddRoute.png)
+![Route List view screenshot](/ts-screenshots/RouteList.png)
+![Schedule Item detail view screenshot](/ts-screenshots/ScheduleItem.png)
