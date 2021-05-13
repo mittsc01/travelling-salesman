@@ -7,10 +7,11 @@ exports[`renders the UI as expected 1`] = `
   <ul />
   <span />
   <button
+    className="save-button"
     onClick={[Function]}
     type="button"
   >
-    Add Route
+    New Route
   </button>
 </div>
 `;
