@@ -48,7 +48,8 @@ export default class RegistrationForm extends React.Component {
     render(){
         return (
         <form onSubmit={this.handleSubmit} className="registration-form">
-            <label htmlFor="full_name">Name</label>
+          <div className="form-div">
+          <label htmlFor="full_name">Name</label>
             <input name="full_name"></input>
             <label htmlFor="user_name">Username</label>
             <input type="text" name="user_name"/>
@@ -56,7 +57,9 @@ export default class RegistrationForm extends React.Component {
             <input type="password" name="password"/>
             <label htmlFor="repeat_password">Repeat Password</label>
             <input type="password" name="repeat_password"/>
-            <button type="submit">Register</button>
+            <button className="save-button" type="submit">Register</button>
+          </div>
+            
         </form>
             )
     }

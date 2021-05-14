@@ -70,6 +70,8 @@ input {
   text-transform: uppercase;
 }
 .form-div {
+  display: flex;
+  flex-direction: column;
   background-color: #044545;
   color: white;
   padding: 20px;
